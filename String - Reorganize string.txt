@@ -1,0 +1,62 @@
+public class Solution {
+    public string ReorganizeString(string S) 
+    {
+        IDictionary<char, int> dict = new Dictionary<char, int>();
+        foreach (char c in S)
+        {
+            if (!dict.ContainsKey(c))
+            {
+                dict.Add(c, 1);
+            }
+            else
+            {
+                dict[c]++;
+            }
+        }
+
+        SortedSet<(char, int)> heap = new SortedSet<(char, int)>(Comparer<(char, int)>.Create((a,b) => 
+        {
+            if (a.Item2 == b.Item2)
+                return a.Item1 - b.Item1;
+            else
+                return b.Item2 - a.Item2;
+        }));
+        foreach (var pair in dict)
+        {
+            //var charNew = new MultiChar(pair.Value, pair.Key);
+            heap.Add((pair.Key, pair.Value));
+        }
+        string res = "";
+        while (heap.Count() > 1)
+        {
+            var firstEle = heap.First();
+            heap.Remove(firstEle);
+            var secondEle = heap.First();
+            heap.Remove(secondEle);
+            res += firstEle.Item1;
+            res += secondEle.Item1;
+            firstEle.Item2--;
+            secondEle.Item2--;
+            if (firstEle.Item2 > 0)
+            {
+                heap.Add(firstEle);
+            }
+            if (secondEle.Item2 > 0)
+            {
+                heap.Add(secondEle);
+            }
+        }
+
+        if (heap.Count() == 1)
+        {
+            var item = heap.First();
+            if (item.Item2 > 1)
+            {
+                return "";
+            }
+            res += item.Item1;
+        }
+
+        return res;
+    }
+}

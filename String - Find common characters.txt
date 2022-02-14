@@ -1,0 +1,33 @@
+public class Solution {
+    public IList<string> CommonChars(string[] A) 
+    {
+        var list = new List<string>();
+        int[] arr = new int[26];
+        Array.Fill(arr, Int32.MaxValue);
+
+        foreach (string s in A)
+        {
+            int[] chars = new int[26];
+            for (int i = 0; i < s.Length; i++)
+            {
+                chars[s[i] - 'a']++;
+            }
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                arr[i] = Math.Min(arr[i], chars[i]);
+            }
+        }
+        
+        for(int i = 0; i < arr.Length; i++)
+        {
+            while(arr[i] > 0)
+            {
+                list.Add("" + (char)(i + 'a'));
+                arr[i]--;
+            }
+        }
+        
+        return list;
+    }
+}

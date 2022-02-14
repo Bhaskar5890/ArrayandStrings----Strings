@@ -1,0 +1,20 @@
+public class Solution {
+    public IList<IList<string>> GroupAnagrams(string[] strs) 
+    {
+        var dict = new Dictionary<string, IList<string>>();
+        foreach(string s in strs)
+        {
+            var sortedString = String.Concat(s.OrderBy(x => x));
+            if(!dict.ContainsKey(sortedString))
+            {
+                dict.Add(sortedString, new List<string>(){s});
+            }
+            else
+            {
+                dict[sortedString].Add(s);
+            }
+        }
+        
+        return dict.Values.ToList();
+    }
+}
