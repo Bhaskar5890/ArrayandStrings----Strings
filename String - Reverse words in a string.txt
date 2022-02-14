@@ -1,0 +1,36 @@
+public class Solution {
+    public string ReverseWords(string s) 
+    {
+        var reverse = "";
+        var start = 0;
+        var current = s.Length-1;
+        var end = 0;
+        while(current >= 0)
+        {
+            while (current >= 0 && s[current] == ' ')
+            {
+                current--;
+            }
+            end = current;
+            while(current >= 0 && s[current] != ' ')
+            {
+                current--;
+            }
+            
+            start = current + 1;
+            
+            var subStr = s.Substring(start, end-start+1);
+            
+            if(reverse.Length > 0)
+            {
+                reverse = reverse + " " + subStr;
+            }
+            else
+            {
+                reverse = reverse + subStr;
+            }
+        }
+        
+        return reverse.TrimEnd();
+    }
+}
