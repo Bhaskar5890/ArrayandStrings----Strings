@@ -1,10 +1,10 @@
 public class Solution {
     public string ReverseWords(string s) 
     {
-        var reverse = "";
         var start = 0;
         var current = s.Length-1;
         var end = 0;
+        var sb = new StringBuilder();
         while(current >= 0)
         {
             while (current >= 0 && s[current] == ' ')
@@ -21,16 +21,10 @@ public class Solution {
             
             var subStr = s.Substring(start, end-start+1);
             
-            if(reverse.Length > 0)
-            {
-                reverse = reverse + " " + subStr;
-            }
-            else
-            {
-                reverse = reverse + subStr;
-            }
+            sb.Append(subStr);
+            sb.Append(" ");
         }
         
-        return reverse.TrimEnd();
+        return sb.ToString().TrimEnd();
     }
 }
